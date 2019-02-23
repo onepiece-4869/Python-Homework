@@ -1,0 +1,18 @@
+>>> import pg8000
+#连接数据库
+>>> conn = pg8000.connect(host='202.100.1.139', user='qytangdbuser', password='Cisc0123', database='qytangdb')
+>>> cursor = conn.cursor()
+#执行数据库操作
+>>> cursor.execute(“create table test1(t1 int, t2 varchar(40))”) #创建表
+>>> cursor.execute(“insert into test1 (t1,t2) values (11, ‘welcome to qytang’)”) #插入条目
+>>> cursor.execute("insert into test1 (t1,t2) values (12, 'welcome to python')")
+>>> cursor.execute("select * from test1")
+>>> yourresults = cursor.fetchall()#获取执行结果
+>>> for i in yourresults:
+...  print(i)
+...
+[11, 'welcome to qytang']
+[12, 'welcome to python']
+>>> cursor.execute(“drop table test1”) #删除数据库
+#严重注意一定要提交，否则数据不会实际写入数据库
+>>> conn.commit()

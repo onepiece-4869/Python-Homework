@@ -1,0 +1,91 @@
+安装PSQL:
+[root@Fedora ~]# dnf install postgresql*
+
+初始化数据库:
+[root@Fedora ~]# postgresql-setup initdb
+
+重启并设置为开机启动:
+[root@Fedora ~]# systemctl restart postgresql
+[root@Fedora ~]# systemctl enable postgresql
+
+关闭防火墙:
+[root@Fedora ~]# systemctl stop firewalld.service
+[root@Fedora ~]# systemctl disable firewalld.service
+
+登录PSQL查看状态:
+[root@Fedora ~]# su - postgres
+-bash-4.3$ psql
+
+postgres=# \du（查看角色）
+
+postgres=# \l（查看所有数据库）
+
+postgres=# \q（退出）
+-bash-4.3$
+
+创建角色（PSQL中的用户）与数据库实例:
+[root@Fedora pgsql]# su - postgres
+-bash-4.3$ createuser qytangdbuser（创建用户）
+-bash-4.3$ createdb -e -O qytangdbuser qytangdb（创建数据库）
+CREATE DATABASE qytangdb OWNER qytangdbuser;（拥有者qytangdbuser）
+-bash-4.3$
+
+修改用户密码:
+-bash-4.3$ psql
+postgres=# \password qytangdbuser（修改用户密码）
+输入新的密码：
+再次键入：
+postgres=#
+
+修改远程连接设置:
+postgresql.conf
+（/var/lib/pgsql/data/postgresql.conf）
+修改： （注意去掉#）
+ listen_addresses = '*'
+
+pg_hba.conf
+（/var/lib/pgsql/data/pg_hba.conf）
+添加：
+host    all             all             202.100.1.138/32        md5
+
+重启服务:
+[root@Fedora pgsql]# systemctl restart postgresql
+关闭防火墙:
+[root@Fedora pgsql]# systemctl stop firewalld.service
+
+在其他服务器上连接:
+[root@Fedora DataBase]# psql -U qytangdbuser -d qytangdb -h 202.100.1.139
+用户 qytangdbuser 的口令：
+psql (9.4.6, 服务器 9.4.7)
+输入 "help" 来获取帮助信息.
+
+qytangdb=>
+
+简单测试（1）:
+qytangdb=> create table test1(t1 int, t2 varchar(40));（创建表）
+CREATE TABLE
+qytangdb=> \d test1（查看表信息）
+         资料表 "public.test1"
+ 栏位 |         型别          | 修饰词
+------+-----------------------+--------
+ t1   | integer               |
+ t2   | character varying(40) |
+
+qytangdb=> insert into test1 (t1,t2) values (11, ‘welcome to qytang’ )（插入条目）
+INSERT 0 1
+qytangdb=> insert into test1 (t1,t2) values (12,‘welcome to python’);（插入条目）
+INSERT 0 1
+
+简单测试（2）:
+qytangdb=> select * from test1;（查询表条目）
+ t1 |        t2
+----+-------------------
+ 11 | welcome to qytang
+ 12 | welcome to python
+(2 行记录)
+
+qytangdb=> drop table test1;（删除表）
+DROP TABLE
+
+
+
