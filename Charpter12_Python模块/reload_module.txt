@@ -1,0 +1,12 @@
+>>> import module3_reload
+>>> print(module3_reload.X,module3_reload.Y)
+100 [1, 2]
+#修改module3_reload
+>>> import module3_reload #重新导入没有意义
+>>> print(module3_reload.X,module3_reload.Y)
+100 [1, 2]
+>>> from imp import reload
+>>> reload(module3_reload) #reload模块，变量得以更新
+<module 'module3_reload' from '/root/basic/module3_reload.py'>
+>>> print(module3_reload.X,module3_reload.Y)
+100 [1, 2, 3]

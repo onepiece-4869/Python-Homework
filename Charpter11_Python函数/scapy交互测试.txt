@@ -1,0 +1,10 @@
+[root@localhost ~]# python3
+Python 3.6.4 (default, May 12 2018, 21:55:45)
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import logging
+>>> logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
+>>> from scapy.all import *
+>>> ping_pkt = IP(dst='172.16.1.254')/ICMP()
+>>> ping_result = sr1(ping_pkt,timeout=2,verbose=False)
+>>> ping_result.show()
