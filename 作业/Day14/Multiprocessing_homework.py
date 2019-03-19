@@ -9,12 +9,10 @@ import ipaddress
 
 def ping_scan(network):
     # 多线程
-    pool = ThreadPool(150)
+    # pool = ThreadPool(150)
 
     # 多进程
-    # from multiprocessing import freeze_support
-    # freeze_support()
-    # pool = PoolProcess(150)
+    pool = PoolProcess(150)
     net = ipaddress.ip_network(network)
     result_dict = {}
     for ip in net:
@@ -23,11 +21,6 @@ def ping_scan(network):
 
     pool.close()
     pool.join()
-
-
-
-
-
 
     active_ip = []
     for ip, result in result_dict.items():
