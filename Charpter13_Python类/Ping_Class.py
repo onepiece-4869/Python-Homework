@@ -9,7 +9,7 @@
 import logging
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
-from scapy.all import *
+from  kamene.all import *
 
 
 class qyt_ping:
@@ -42,3 +42,7 @@ class qyt_ping:
             else:
                 print('.', end='', flush=True)
         print()
+
+if __name__ == '__main__':
+
+    print()

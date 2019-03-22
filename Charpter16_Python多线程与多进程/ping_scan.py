@@ -38,7 +38,6 @@ def ping_scan(network):
 if __name__ == '__main__':
     import datetime
     import pickle
-
     now = datetime.datetime.now()
     otherStyleTime = now.strftime("%Y-%m-%d_%H-%M-%S")
     scan_file_name = 'scan_save_pickle_' + otherStyleTime + '.pl'
