@@ -9,7 +9,7 @@
 import logging
 
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
-from scapy.all import *
+from kamene.all import *
 from random import randint
 
 
