@@ -4,6 +4,7 @@ from matplotlib import pyplot as plt
 plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['font.family'] = 'sans-serif'
 from paramiko_ssh import qytang_ssh
+import re
 
 
 def mat_bing(size_list, name_list):
@@ -41,6 +42,33 @@ def mat_bing(size_list, name_list):
 
 
 if __name__ == "__main__":
-    result_show = qytang_ssh('192.168.11.120', 'admin', 'cisco', cmd='show monitor name qytang-monitor cache format table')
-    counters =[]
+    result_show = qytang_ssh('192.168.11.120', 'admin', 'cisco', cmd='show flow monitor name qytang-monitor  cache format table')
+    print(result_show)
+    result_show = result_show.split('\n')
+    result_show = [x for x in result_show if x != '' and x != ' ']
+    counters = []
     protocols = []
+    protocols_new = []
+    for x in result_show:
+        if re.findall('APP NAME', x):
+            a = result_show.index(x)
+            result_show_new = result_show[12:]
+            # print(result_show_new)
+    for x in result_show_new:
+        if re.match('(\w+\s*\w+)\s+(\d+)\r', x).groups():
+            b = re.match('(\w+\s*\w+)\s+(\d+)\r', x).groups()
+            counters.append(b[1])
+            protocols.append(b[0])
+    for x in protocols:
+        # print(x)
+        if re.findall('port', x):
+            x = x[5:]
+            protocols_new.append(x)
+        else:
+            protocols_new.append(x)
+    # print(protocols)
+    mat_bing(counters, protocols_new)
+
+
+
+

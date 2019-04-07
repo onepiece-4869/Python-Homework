@@ -11,6 +11,7 @@ def arp_reply(ip_address):
         sendp(Ether(dst='ff:ff:ff:ff:ff:ff', src=mac_address) / ARP(op=2, hwsrc=mac_address, hwdst=mac_address, psrc=ip_address, pdst=ip_address), verbose=False)
         time.sleep(1)
 
+
 if __name__ == '__main__':
     arp_reply('192.168.11.120')
 
