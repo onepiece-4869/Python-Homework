@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="root@192.168.121.100:22" showNewOnTargetInSync="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="DJG" showNewOnTargetInSync="false">
     <serverData>
+      <paths name="DJG">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/root/DJG" local="$PROJECT_DIR$/../DJG" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="root@192.168.121.100:22">
         <serverdata>
           <mappings>
